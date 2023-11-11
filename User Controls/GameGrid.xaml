@@ -1,0 +1,1205 @@
+﻿<UserControl x:Class="Connect_4_The_Game.User_Controls.GameGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Connect_4_The_Game.User_Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="855" d:DesignWidth="1590"
+             Loaded="UserControl_Loaded">
+    <Grid Background="Black" x:Name="GridManager">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="275"/>
+            <ColumnDefinition Width="990"/>
+            <ColumnDefinition Width="275"/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="805"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="P1grid">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Canvas.Left" Value="0"/>
+                    <Setter Property="Canvas.Right" Value="0"/>
+                    <Setter Property="Canvas.Top" Value="0"/>
+                    <Setter Property="Canvas.Bottom" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Width" Value="275"/>
+                    <Setter Property="FontFamily" Value="Bison"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Column="1" Grid.Row="0" Background="Transparent"/>
+            <Canvas Grid.Row="1">
+                <TextBlock Height="178" x:Name="txtP1Label" FontSize="60" Padding="20,50,50,50" Foreground="#056A4F"/>
+            </Canvas>
+            <Canvas Grid.Row="2">
+                <TextBlock Height="50" Text="Score:" FontSize="40" HorizontalAlignment="Left"/>
+            </Canvas>
+            <Canvas Grid.Row="3">
+                <TextBlock Height="50" Text="Something:" FontSize="40" HorizontalAlignment="Left"/>
+            </Canvas>
+            <Canvas Grid.Row="4">
+                <Ellipse x:Name="LighterP1" Width="50" Height="50" Canvas.Left="112.5" Canvas.Top="25" Fill="#056A4F" Visibility="Hidden"/>
+            </Canvas>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="3" x:Name="P2grid">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Canvas.Left" Value="0"/>
+                    <Setter Property="Canvas.Right" Value="0"/>
+                    <Setter Property="Canvas.Top" Value="0"/>
+                    <Setter Property="Canvas.Bottom" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Width" Value="275"/>
+                    <Setter Property="FontFamily" Value="Bison" />
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Row="1">
+                <TextBlock Height="275" x:Name="txtP2Label" FontSize="60" Padding="20,50,50,50" Foreground="#FE4C02"/>
+            </Canvas>
+            <Canvas Grid.Row="2">
+                <TextBlock Height="50" Text="Score:" FontSize="40" HorizontalAlignment="Left" Padding="10,0,0,0"/>
+            </Canvas>
+            <Canvas Grid.Row="3">
+                <TextBlock Height="50" Text="Something:" FontSize="40" HorizontalAlignment="Left" Padding="10,0,0,0"/>
+            </Canvas>
+            <Canvas Grid.Row="4">
+                <Ellipse x:Name="LighterP2" Width="50" Height="50" Canvas.Left="112.5" Canvas.Top="25" Fill="#FE4C02" Visibility="Hidden"/>
+            </Canvas>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Width="990" x:Name="GridContainer">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="ColumnSelecterGrid" Grid.Row="0">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Canvas}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <EventSetter Event="MouseEnter" Handler="Columns_MouseEnter"/>
+                        <EventSetter Event="MouseLeave" Handler="Columns_MouseLeave"/>
+                        <EventSetter Event="MouseLeftButtonDown" Handler="AnimationInitialiter"/>
+                    </Style>
+                    <Style TargetType="{x:Type Button}">
+                        
+                        <Setter Property="Width" Value="142"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Content" Value="Click here"/>
+                        <Setter Property="FontFamily" Value="Bison"/>
+                        <Setter Property="FontSize" Value="35"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Canvas x:Name="ColumnSelector0" Grid.Row="0" Grid.Column="0"/>
+                <Canvas x:Name="ColumnSelector1" Grid.Row="0" Grid.Column="1"/>
+                <Canvas x:Name="ColumnSelector2" Grid.Row="0" Grid.Column="2"/>
+                <Canvas x:Name="ColumnSelector3" Grid.Row="0" Grid.Column="3"/>
+                <Canvas x:Name="ColumnSelector4" Grid.Row="0" Grid.Column="4"/>
+                <Canvas x:Name="ColumnSelector5" Grid.Row="0" Grid.Column="5"/>
+                <Canvas x:Name="ColumnSelector6" Grid.Row="0" Grid.Column="6"/>
+                <Canvas Grid.Row="1" Grid.Column="0">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="1">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor1"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor1"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor1"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor1"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor1"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor1"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="2">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor2"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor2"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor2"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor2"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor2"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor2"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="3">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor3"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor3"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor3"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor3"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor3"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor3"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="4">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor4"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor4"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor4"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor4"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor4"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor4"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="5">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor5"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor5"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor5"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor5"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor5"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor5"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="6">
+                    <Button>
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Yellow" Offset="0" x:Name="FirstColor6"/>
+                                <GradientStop Color="Red" Offset="0.25" x:Name="SecondColor6"/>
+                                <GradientStop Color="Blue" Offset="0.50" x:Name="ThirdColor6"/>
+                                <GradientStop Color="LimeGreen" Offset="0.75" x:Name="FourthColor6"/>
+                                <GradientStop Color="Aqua" Offset="1" x:Name="FifthColor6"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation Storyboard.TargetName="FirstColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:0.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:1.5"/>
+
+                                        <ColorAnimation Storyboard.TargetName="FirstColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Aqua" To="Yellow"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="SecondColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Yellow" To="Red"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="ThirdColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Red" To="Blue"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FourthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="Blue" To="LimeGreen"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                        <ColorAnimation Storyboard.TargetName="FifthColor6"
+                                            Storyboard.TargetProperty="Color"
+                                            Duration="0:0:0.5" From="LimeGreen" To="Aqua"
+                                            AutoReverse="False" BeginTime="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Canvas>
+            </Grid>
+            <Grid Grid.Row="1" x:Name="ActualGameGrid" HorizontalAlignment="Left" Width="990">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Canvas}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <EventSetter Event="MouseEnter" Handler="Columns_MouseEnter"/>
+                        <EventSetter Event="MouseLeave" Handler="Columns_MouseLeave"/>
+                        <EventSetter Event="MouseLeftButtonDown" Handler="AnimationInitialiter"/>
+                    </Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderBrush" Value="#6300C6"/>
+                        <Setter Property="BorderThickness" Value="10"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12.5"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="12.5"/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="1"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn1"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="2"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn2"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="3"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn3"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="4"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn4"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="5"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn5"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="6"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn6"/>
+                <Canvas Grid.Row="1" 
+                        Grid.Column="7"
+                        Grid.RowSpan="6"
+                        x:Name="AnimatingCanvasColumn7"/>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Canvas Grid.Row="1" Grid.Column="1" x:Name="C1_1"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="2">
+                    <Canvas Grid.Row="1" Grid.Column="2" x:Name="C1_2"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="3">
+                    <Canvas Grid.Row="1" Grid.Column="3" x:Name="C1_3"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="4">
+                    <Canvas Grid.Row="1" Grid.Column="4" x:Name="C1_4"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="5">
+                    <Canvas Grid.Row="1" Grid.Column="5" x:Name="C1_5"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="6">
+                    <Canvas Grid.Row="1" Grid.Column="6" x:Name="C1_6"/>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="7">
+                    <Canvas Grid.Row="1" Grid.Column="7" x:Name="C1_7"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="1">
+                    <Canvas Grid.Row="2" Grid.Column="1" x:Name="C2_1"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="2">
+                    <Canvas Grid.Row="2" Grid.Column="2" x:Name="C2_2"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="3">
+                    <Canvas Grid.Row="2" Grid.Column="3" x:Name="C2_3"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="4">
+                    <Canvas Grid.Row="2" Grid.Column="4" x:Name="C2_4"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="5">
+                    <Canvas Grid.Row="2" Grid.Column="5" x:Name="C2_5"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="6">
+                    <Canvas Grid.Row="2" Grid.Column="6" x:Name="C2_6"/>
+                </Border>
+                <Border Grid.Row="2" Grid.Column="7">
+                    <Canvas Grid.Row="2" Grid.Column="7" x:Name="C2_7"/>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="1">
+                    <Canvas Grid.Row="3" Grid.Column="1" x:Name="C3_1"/>     
+                </Border>         
+                <Border Grid.Row="3" Grid.Column="2">
+                    <Canvas Grid.Row="3" Grid.Column="2" x:Name="C3_2"/>    
+                </Border>         
+                <Border Grid.Row="3" Grid.Column="3">
+                    <Canvas Grid.Row="3" Grid.Column="3" x:Name="C3_3"/>    
+                </Border>         
+                <Border Grid.Row="3" Grid.Column="4">
+                    <Canvas Grid.Row="3" Grid.Column="4" x:Name="C3_4"/>    
+                </Border>         
+                <Border Grid.Row="3" Grid.Column="5">
+                    <Canvas Grid.Row="3" Grid.Column="5" x:Name="C3_5"/>    
+                </Border>         
+                <Border Grid.Row="3" Grid.Column="6">
+                    <Canvas Grid.Row="3" Grid.Column="6" x:Name="C3_6"/>   
+                </Border>        
+                <Border Grid.Row="3" Grid.Column="7">
+                    <Canvas Grid.Row="3" Grid.Column="7" x:Name="C3_7"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="1">
+                    <Canvas Grid.Row="4" Grid.Column="1" x:Name="C4_1"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="2">
+                    <Canvas Grid.Row="4" Grid.Column="2" x:Name="C4_2"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="3">
+                    <Canvas Grid.Row="4" Grid.Column="3" x:Name="C4_3"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="4">
+                    <Canvas Grid.Row="4" Grid.Column="4" x:Name="C4_4"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="5">
+                    <Canvas Grid.Row="4" Grid.Column="5" x:Name="C4_5"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="6">
+                    <Canvas Grid.Row="4" Grid.Column="6" x:Name="C4_6"/>
+                </Border>
+                <Border Grid.Row="4" Grid.Column="7">
+                    <Canvas Grid.Row="4" Grid.Column="7" x:Name="C4_7"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="1">
+                    <Canvas Grid.Row="5" Grid.Column="1" x:Name="C5_1"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="2">
+                    <Canvas Grid.Row="5" Grid.Column="2" x:Name="C5_2"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="3">
+                    <Canvas Grid.Row="5" Grid.Column="3" x:Name="C5_3"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="4">
+                    <Canvas Grid.Row="5" Grid.Column="4" x:Name="C5_4"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="5">
+                    <Canvas Grid.Row="5" Grid.Column="5" x:Name="C5_5"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="6">
+                    <Canvas Grid.Row="5" Grid.Column="6" x:Name="C5_6"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="7">
+                    <Canvas Grid.Row="5" Grid.Column="7" x:Name="C5_7"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="1">
+                    <Canvas Grid.Row="6" Grid.Column="1" x:Name="C6_1"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="2">
+                    <Canvas Grid.Row="6" Grid.Column="2" x:Name="C6_2"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="3">
+                    <Canvas Grid.Row="6" Grid.Column="3" x:Name="C6_3"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="4">
+                    <Canvas Grid.Row="6" Grid.Column="4" x:Name="C6_4"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="5">
+                    <Canvas Grid.Row="6" Grid.Column="5" x:Name="C6_5"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="6">
+                    <Canvas Grid.Row="6" Grid.Column="6" x:Name="C6_6"/>
+                </Border>
+                <Border Grid.Row="6" Grid.Column="7">
+                    <Canvas Grid.Row="6" Grid.Column="7" x:Name="C6_7"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>         
+</UserControl>
